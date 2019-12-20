@@ -24,7 +24,7 @@ from email.mime.text import MIMEText
 from email.utils import formatdate
 from email import encoders
 
-#-------------------- dataFrame from sql dataframe functions --------------------------------------#
+#----------------------------------- dataFrame from sql functions --------------------------------------#
 
 def get_dataFrame_for_Register_sheet(search_start_date, search_end_date, cursor):
 	query_string = """
@@ -285,7 +285,7 @@ def main():
 	two_weeks_before = '"' + str(two_weeks_before) + '"'
 	#set mysql connections
 
-	connect = pymysql.connect(host='funnow-prod-go-20190514-for-metabase.cqajv42imxem.ap-northeast-1.rds.amazonaws.com', port=3306, user='funnow', passwd='********', db='FunNow_V2')
+	connect = pymysql.connect(host='funnow-prod-go-20190514-for-metabase.cqajv42imxem.ap-northeast-1.rds.amazonaws.com', port=3306, user='funnow', passwd='b5D_C4-7f', db='FunNow_V2')
 	cursor = connect.cursor()
 	#store dataFrame to a python list
 
