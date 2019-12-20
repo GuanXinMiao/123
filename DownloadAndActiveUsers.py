@@ -285,7 +285,7 @@ def main():
 	two_weeks_before = '"' + str(two_weeks_before) + '"'
 	#set mysql connections
 
-	connect = pymysql.connect(host='funnow-prod-go-20190514-for-metabase.cqajv42imxem.ap-northeast-1.rds.amazonaws.com', port=3306, user='funnow', passwd='b5D_C4-7f', db='FunNow_V2')
+	connect = pymysql.connect(host='funnow-prod-go-20190514-for-metabase.cqajv42imxem.ap-northeast-1.rds.amazonaws.com', port=3306, user='funnow', passwd='**********', db='FunNow_V2')
 	cursor = connect.cursor()
 	#store dataFrame to a python list
 
