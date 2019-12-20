@@ -188,7 +188,7 @@ def get_dataFrame_for_FirstBuy_sheet(search_start_date, search_end_date, cursor)
 
     return df
 
-connect = pymysql.connect(host='funnow-prod-go-20190514-for-metabase.cqajv42imxem.ap-northeast-1.rds.amazonaws.com', port=3306, user='funnow', passwd='b5D_C4-7f', db='FunNow_V2')
+connect = pymysql.connect(host='funnow-prod-go-20190514-for-metabase.cqajv42imxem.ap-northeast-1.rds.amazonaws.com', port=3306, user='funnow', passwd='********', db='FunNow_V2')
 cursor = connect.cursor()
 df = get_dataFrame_for_FirstBuy_sheet('"2019-01-01"', '"2019-12-17"',cursor)
 sheet_name = "FirstBuy"
