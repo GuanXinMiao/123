@@ -17,10 +17,10 @@ import os
 
 # database connection for reading
 os.environ['NLS_LANG'] = 'AMERICAN_AMERICA.AL32UTF8'
-conn1 = pymysql.connect(host = '13.231.106.254', port = 3301, user = 'funnow_go', passwd = 'y3n42hVf4yUJUy6g', db = 'FunNow_V2')
+conn1 = pymysql.connect(host = '13.231.106.254', port = 3301, user = 'funnow_go', passwd = '************', db = 'FunNow_V2')
 cursor1 = conn1.cursor()
 
-conn2 = pymysql.connect(host='funnow-prod-go-20190514-for-metabase.cqajv42imxem.ap-northeast-1.rds.amazonaws.com', port=3306, user='funnow', passwd='b5D_C4-7f', db='FunNow_V2')
+conn2 = pymysql.connect(host='funnow-prod-go-20190514-for-metabase.cqajv42imxem.ap-northeast-1.rds.amazonaws.com', port=3306, user='funnow', passwd='******', db='FunNow_V2')
 cursor2 = conn2.cursor()
 
 today = date.today()
