@@ -106,7 +106,7 @@ df = pd.DataFrame(cursor2.fetchall(), columns = ['OrdersProductID', 'HashOrderID
   'updateTime', 'PromoCodeID', 'PromoTitle', 'promoCode'])
 
 #store data
-engine = create_engine("mysql+pymysql://funnow_go:y3n42hVf4yUJUy6g@13.231.106.254:3301/FunNow_V2?charset=utf8mb4")
+engine = create_engine("mysql+pymysql://funnow_go:**********@13.231.106.254:3301/FunNow_V2?charset=utf8mb4")
 con = engine.connect()
 df.to_sql(name = "FirstBuy", con = con, if_exists = 'append', index = False)
 
