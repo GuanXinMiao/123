@@ -50,10 +50,10 @@ def main():
 	#connect to database for store
 	engine = create_engine("mysql+pymysql://funnow_go:***********@13.231.106.254:3301/FunNow_V2?charset=utf8mb4")
 	con = engine.connect()
-	#df = get_dataFrame(cursor)
+	df = get_dataFrame(cursor)
 
 	table_name = 'PersonalBehavior'
-	#store_data(con, df, table_name)
+	store_data(con, df, table_name)
 
 if __name__ == '__main__':
 	main()
