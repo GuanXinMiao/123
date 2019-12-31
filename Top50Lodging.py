@@ -74,3 +74,45 @@ def get_lodging_Data():
 
 	df = pd.DataFrame(cursor.fetchall(), columns = ['PID', 'ProductName', 'ViewAmount', 'Tag', 'Region', 'BID', 'BranchName', 'FridayMiniPrice', 'SaturdayMiniPrice'])
 	df.to_csv('Top50.csv', index = True, encoding = 'utf-8')
+def get_Date_viewAmount():
+
+	conn = pymysql.connect(host = '13.231.106.254', port = 3301, user = 'funnow_go', passwd = '********', db = 'FunNow_V2')
+	cursor = conn.cursor()
+	query = """
+	SELECT T1.PID , DATE_FORMAT(CONVERT_TZ(ProductDetailViewed.CreatedAt, '+00:00','+08:00'), '%Y/%m/%d'), COUNT(*)
+	FROM(
+	SELECT Friday.PID, Friday.ProductName, Friday.ViewAmount, Friday.Tag, Friday.Region, Friday.BID, Friday.BranchName, 
+	Friday.MinimumPrice as FridayMiniPrice, 
+	Saturday.MinimumPrice as SaturdayMiniPrice
+	FROM(
+		SELECT ProductRank.PID, ViewAmount, ProductName, Tag, Region, BID, BranchName, MinimumPrice
+		FROM(
+			SELECT PID, COUNT(*) ViewAmount
+			FROM ProductDetailViewed
+			WHERE ProductDetailViewed.CreatedAt > '2019-12-05' 
+			GROUP BY PID)ProductRank
+		LEFT JOIN ProductWeekdayPrice ON ProductRank.PID = ProductWeekdayPrice.PID
+		WHERE Weekday = 5 AND Tag = '住宿'
+	)Friday
+	LEFT JOIN (
+	SELECT ProductRank.PID, ViewAmount, ProductName, Tag, Region, BID, BranchName, MinimumPrice
+	FROM(
+		SELECT PID, COUNT(*) ViewAmount
+		FROM ProductDetailViewed
+		WHERE ProductDetailViewed.CreatedAt > '2019-12-05'
+		GROUP BY PID)ProductRank
+		LEFT JOIN ProductWeekdayPrice ON ProductRank.PID = ProductWeekdayPrice.PID
+		WHERE Weekday = 6 AND Tag = '住宿'
+	)Saturday ON Saturday.PID = Friday.PID
+	ORDER BY Friday.ViewAmount DESC 
+	LIMIT 50
+	)T1
+	LEFT JOIN ProductDetailViewed ON T1.PID = ProductDetailViewed.PID
+	WHERE (WEEKDAY(DATE_FORMAT(CONVERT_TZ(ProductDetailViewed.CreatedAt, '+00:00','+08:00'), '%Y/%m/%d')) = 4 OR WEEKDAY(DATE_FORMAT(CONVERT_TZ(ProductDetailViewed.CreatedAt, '+00:00','+08:00'), '%Y/%m/%d')) = 5) 
+	AND ProductDetailViewed.CreatedAt > '2019-12-05'
+	GROUP BY T1.PID, DATE_FORMAT(CONVERT_TZ(ProductDetailViewed.CreatedAt, '+00:00','+08:00'), '%Y/%m/%d')
+	"""
+	cursor.execute(query)
+
+	df = pd.DataFrame(cursor.fetchall(), columns = ['PID', 'Date', 'ViewAmount'])
+	df.to_csv('Top50DateView.csv', index = True, encoding = 'utf-8')
